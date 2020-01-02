@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Baicells SD-WAN SMS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+  </head>
+<body>
+    <header>
+      <div class="container">
+        <h1 class="logo">Baicells SD-WAN SMS</h1>
+        <strong><nav>
+          <ul class="menu">
+            <li><a href="{{ url_for('/todo/') }}">Logout</a></li>
+              <li> </li>
+          </ul>
+        </nav></strong>
+      </div>
+    </header>
+
+
+    <div class="wrap">
+        <div class="floatleft">
+            <h4>Overview</h4>
+            <ul>
+                <li><a href="{{ url_for('/') }}">overview</a></li>
+            </ul>
+            <h4>Monitor</h4>
+            <ul>
+                <li><a href="{{ url_for('/todo/') }}">Monitor System</a></li>
+                <li><a href="{{ url_for('/todo/') }}">Monitor FatEdges</a></li>
+                <li><a href="{{ url_for('/todo/') }}">Monitor ThinEdges</a></li>
+                <li><a href="{{ url_for('/todo/') }}">Logs</a></li>
+            </ul>
+            <h4>Orchestration</h4>
+            <ul>
+                <li><a href="{{ url_for('/todo/') }}">Regions</a></li>
+                <li><a href="{{ url_for('/todo/') }}">Enterprise Devices</a></li>
+                <li><a href="{{ url_for('/todo/') }}">Procedure Orchestration</a></li>
+                <li><a href="{{ url_for('/todo/') }}">Visualizing Orchestration</a></li>
+            </ul>
+            <h4>Network Configuration</h4>
+            <ul>
+                <li><a href="{{ url_for('/todo/') }}">FatEdges</a></li>
+                <li><a href="{{ url_for('/todo/') }}">ThinEdges</a></li>
+                <li><a href="{{ url_for('/todo/') }}">Enterprise Network</a></li>
+            </ul>
+            <h4>System Configuration</h4>
+            <ul>
+                <li><a href="{{ url_for('/todo/') }}">Account</a></li>
+            </ul>
+        </div>
+        <div class="floatright">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+</body>
+</html>
