@@ -17,10 +17,9 @@ class EndpointAction(object):
 class South(BaseProc):
 
     def run(self):
-        self._coreQueue.put("hello world")
         self._app = Flask(__name__)
         self.add_all_endpoints()
-        self._app.run(debug=True)
+        self._app.run(debug=True, port=5000)
         pass
 
     def add_endpoint(self, endpoint=None, endpoint_name=None, handler=None, methods=['GET']):
@@ -36,7 +35,9 @@ class South(BaseProc):
 
         self.add_endpoint(endpoint="/todo/", endpoint_name="/todo/", handler=self.todo)
 
-        self.add_endpoint(endpoint="/tunnel/create", endpoint_name="/tunnel/create", handler=self.action, methods=['POST'])
+        self.add_endpoint(endpoint="/tunnel/create", endpoint_name="/tunnel/create", handler=self.action, methods=['POST', 'GET'])
+
+        self.add_endpoint(endpoint="/north/", endpoint_name="/north/", handler=self.action, methods=['POST', 'GET'])
 
     def index(self):
         return self.overview()
@@ -46,7 +47,48 @@ class South(BaseProc):
         return render_template("todo.html")
 
     def overview(self):
-        return render_template("overview.html")
+        region = "Baicells"
+        fatedges = [
+            {
+                'Name': 'Beijing',
+                'SN': 'Unknown',
+                'IP': 'Unknown',
+                'NetworkModel': 'Unknown',
+                'Online': 'OFF',
+                'SPEC': 'Unknown',
+                'SW': 'Unknown',
+                'ThinEdges': [
+                    {
+                        'Name': 'Nanjing',
+                        'SN': 'Unknown',
+                        'IP': 'Unknown',
+                        'Online': 'OFF',
+                        'SPEC': 'Unknown',
+                        'SW': 'Unknown',
+                        'Tunnels': 'Unknown'
+                    },
+                    {
+                        'Name': 'Shenzhen',
+                        'SN': 'Unknown',
+                        'IP': 'Unknown',
+                        'Online': 'OFF',
+                        'SPEC': 'Unknown',
+                        'SW': 'Unknown',
+                        'Tunnels': 'Unknown'
+                    },
+                    {
+                        'Name': 'AliCloud',
+                        'SN': 'Unknown',
+                        'IP': 'Unknown',
+                        'Online': 'OFF',
+                        'SPEC': 'Unknown',
+                        'SW': 'Unknown',
+                        'Tunnels': 'Unknown'
+                    },
+                ]
+            },
+        ]
+        return render_template("overview.html", region = region, fatedges = fatedges)
 
     def action(self):
         if request.method == "POST":
