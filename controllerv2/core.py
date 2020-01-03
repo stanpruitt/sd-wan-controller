@@ -1,3 +1,5 @@
+from controllerv2.edge import Edge
+
 class Singleton:
    __instance = None
 
@@ -12,3 +14,13 @@ class Singleton:
          raise Exception("This class is a singleton!")
       else:
          Singleton.__instance = self
+         self._edges = dict()
+
+   def getresponse(self, edgeSN):
+      try:
+         edge = self._edges[edgeSN]
+      except KeyError:
+         edge = Edge(edgeSN)
+         self._edges[edgeSN] = edge
+
+      return edge.getresponse()

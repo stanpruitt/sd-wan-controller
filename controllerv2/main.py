@@ -1,7 +1,7 @@
 from controllerv2.core import Singleton
 
 from flask import render_template
-from flask import Flask
+from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -57,6 +57,17 @@ def index():
 @app.route("/todo/")
 def todo():
     return render_template("todo.html")
+
+@app.route("/north/", methods=("POST", ))
+def north():
+    cmd = request.form["CMD"]
+    if cmd == "poll":
+        SN = request.form["SN"]
+        return Singleton.getInstance().getresponse(SN)
+    elif cmd == "query":
+        return "Query OK"
+    else:
+        return "Unknown"
 
 
 if __name__ == "__main__":
