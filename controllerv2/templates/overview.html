@@ -3,16 +3,16 @@
 <h1>Overview</h1>
 <p>Region: {{region}}</p>
 {% for fatedge in fatedges %}
-     <p>&nbsp;&nbsp;FatEdge: {{fatedge.Name}}</p>
+     <p>&nbsp;&nbsp;FatEdge: {{fatedge.name}}</p>
      <ul style="list-style:none">
-          <li>SN: {{fatedge.SN}}</li>
-          <li>SPEC: {{fatedge.SPEC}}</li>
-          <li>SW: {{fatedge.SW}}</li>
-          <li>IP: {{fatedge.IP}}</li>
-          <li>Online: {{fatedge.Online}}</li>
-          <li>Network Model: {{fatedge.NetworkModel}}</li>
+          <li>SN: {{fatedge.sn}}</li>
+          <li>SPEC: {{fatedge.spec}}</li>
+          <li>SW: {{fatedge.sw}}</li>
+          <li>IP: {{fatedge.ip}}</li>
+          <li>Online: {{fatedge.online}}</li>
+          <li>Network Model: {{fatedge.networkmodel}}</li>
           <p>Links: </p>
-          {% for thinedge in fatedge.ThinEdges %}
+          {% for thinedge in fatedge.thinedges %}
           <p>&nbsp;&nbsp;ThinEdge: {{ thinedge.Name }}</p>
                <ul style="list-style:none">
                     <li>SN: {{thinedge.SN}}</li>

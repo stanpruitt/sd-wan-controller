@@ -2,6 +2,7 @@ from controllerv2.core import Singleton
 
 from flask import render_template
 from flask import Flask, request
+import sys
 
 app = Flask(__name__)
 
@@ -11,6 +12,7 @@ app = Flask(__name__)
 @app.route("/index.htm")
 def index():
     region = "Baicells"
+    '''
     fatedges = [
         {
             'Name': 'Beijing',
@@ -51,6 +53,8 @@ def index():
             ]
         },
     ]
+    '''
+    fatedges = Singleton.getInstance().fatedges()
     return render_template("overview.html", region=region, fatedges=fatedges)
 
 @app.route("/todo")
@@ -65,11 +69,19 @@ def north():
         SN = request.form["SN"]
         return Singleton.getInstance().getresponse(SN)
     elif cmd == "query":
+        print("query command")
+        try:
+            SN = request.form["sn"]
+            return (Singleton.getInstance().queryCMD(SN, request.form))
+        except Exception as e:
+            print("log")
+            print(e)
         return "Query OK"
     else:
         return "Unknown"
 
 
 if __name__ == "__main__":
+    Singleton.getInstance()
     app.run()
 
