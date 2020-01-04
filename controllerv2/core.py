@@ -49,12 +49,27 @@ class Singleton:
       fats = list()
       for SN, edge in self._edges.items():
          data = edge.data()
-         if data["type"] == "fatedge":
-            fats.append(data)
+         try:
+            if data["type"] == "fatedge":
+               fats.append(data)
+         except Exception:
+            pass
 
 
       return fats
 
+   def thinedges(self):
+      thins = list()
+      for SN, edge in self._edges.items():
+         data = edge.data()
+         try:
+            if data["type"] == "thinedge":
+               thins.append(data)
+         except Exception:
+            pass
+
+
+      return thins
 
 
 

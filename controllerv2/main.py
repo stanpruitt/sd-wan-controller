@@ -80,6 +80,16 @@ def north():
     else:
         return "Unknown"
 
+@app.route("/procedureorchestration")
+def procedureorchestration():
+    fatedges = Singleton.getInstance().fatedges()
+    thinedges = Singleton.getInstance().thinedges()
+    return render_template("procedure-ochecstration.html", fatedges=fatedges, thinedges=thinedges)
+
+@app.route("/orchestration")
+def orchestration():
+    return render_template("orchestration.html")
+
 
 if __name__ == "__main__":
     Singleton.getInstance()

@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block content %}
+     <h1>Procedure Orchestration</h1>
+     <br/>
+<h3>FatEdges</h3>
+<hr/>
+<table style="text-align:center">
+     <tr>
+          <th width="16%">Edge Name</th><th width="16%">Hardware SPEC</th><th width="16%">Status</th>
+          <th width="16%">Orchestration Status</th><th width="16%">Model</th><th width="20%">Operation</th>
+     </tr>
+{% for fatedge in fatedges %}
+     <tr>
+          <td>{{fatedge.name}}</td><td>{{fatedge.spec}}</td><td>aaa</td><td>aaa</td><td>aaa</td>
+          <td>
+               <a href="{{ url_for('orchestration') }}"><button>Orchestration</button></a>
+               <button>Delete</button>
+          </td>
+     </tr>
+{% endfor %}
+
+</table>
+<br/>
+<br/>
+<h3>ThinEdges</h3>
+<hr/>
+<table style="text-align:center">
+     <tr>
+          <th width="16%">Edge Name</th><th width="16%">Hardware SPEC</th><th width="16%">Status</th>
+          <th width="16%">Orchestration Status</th><th width="16%">Model</th><th width="20%">Operation</th>
+     </tr>
+{% for thinedge in thinedges %}
+     <tr>
+          <td>{{thinedge.name}}</td><td>{{thinedge.spec}}</td><td>aaa</td><td>aaa</td><td>aaa</td>
+          <td><button>Orchestration</button><button>Delete</button></td>
+     </tr>
+{% endfor %}
+</table>
+{% endblock %}
