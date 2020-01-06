@@ -36,6 +36,18 @@ class Edge():
     def name(self):
         return self._data["name"]
 
+    def getip(self, wan):
+        try:
+            wans = self._data["wans"]
+            for w in wans.split(";"):
+                its = w.split(",")
+                if its[0] == wan:
+                    return its[1]
+                else:
+                    raise
+        except:
+            raise(Exception("Can not get ip for wan " + wan))
+
     def getSN(self):
         return self._SN
 

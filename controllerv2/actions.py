@@ -62,8 +62,10 @@ class Actions():
             pedge = self._core.edge(action.param1().pedge())
             action.setstatus("Waiting for setup ...")
             # TODO, we should check if any action is pending for perform
+            serverip = edge.getip(action.param1().wan())
+
             edge.newtunnel((action.id(), None, action.param1().wan()))
-            pedge.newtunnel((action.id(), "192.168.100.0", action.param1().pwan()))
+            pedge.newtunnel((action.id(), serverip, action.param1().pwan()))
         except Exception as e:
             action.setstatus("Error  " + str(e))
 
