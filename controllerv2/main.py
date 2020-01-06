@@ -115,6 +115,9 @@ def redirecturl():
     '</head><body></body>' \
     '</html>'
 
+@app.route("/actions")
+def actions():
+    return render_template("actions.html", acts = Singleton.getInstance().actions())
 
 if __name__ == "__main__":
     Singleton.getInstance()

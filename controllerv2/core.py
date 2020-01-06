@@ -1,6 +1,7 @@
 from controllerv2.edge import Edge
 from controllerv2.tunnel import Tunnel
 from os import listdir
+from controllerv2.actions import Actions
 
 class Singleton:
    __instance = None
@@ -18,6 +19,7 @@ class Singleton:
          Singleton.__instance = self
          self._edges = self.loaddata()
          self._tunnels = self.loadtunnels()
+         self._actions = Actions(self)
 #         print(self._edges)
 
    def getresponse(self, edgeSN):
@@ -92,6 +94,7 @@ class Singleton:
       if tunnel.result() != "OK":
          return tunnel.result()
       self._tunnels[tunnel.name()] = tunnel
+      self._actions.addaction("newtunnel", tunnel)
       return tunnel.result()
 
    def tunnels(self):
@@ -104,5 +107,15 @@ class Singleton:
       tunnel = self._tunnels[form["tunnelname"]]
       tunnel.remove()
       del self._tunnels[form["tunnelname"]]
-
+      self._actions.addaction("deltunnel", tunnel)
       return self._tunnels
+
+   def actions(self):
+      return self._actions.list()
+
+   def edge(self, name):
+      for k, v in self._edges.items():
+         if name == v.name():
+            return v
+
+      raise Exception("edge " +  name + " is not exist")

@@ -33,6 +33,9 @@ class Edge():
     def data(self):
         return self._data
 
+    def name(self):
+        return self._data["name"]
+
     def getSN(self):
         return self._SN
 
@@ -58,3 +61,7 @@ class Edge():
             with open("data/" + self._SN, 'w') as json_file:
                 json.dump(self._data, json_file)
         return "OK"
+
+    def newtunnel(self, param):
+        print(param)
+        pass

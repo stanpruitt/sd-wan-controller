@@ -36,6 +36,17 @@ class Tunnel():
     def name(self):
         return self._data["name"]
 
+    def edge(self):
+        return self._data["edge"]
+
+    def wan(self):
+        return self._data["wan"]
+
+    def pedge(self):
+        return self._data["pedge"]
+
+    def pwan(self):
+        return self._data["pwan"]
 
     def data(self):
         return self._data

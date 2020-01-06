@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+     <h1>Actions</h1>
+     <br/>
+     <br/>
+<table style="text-align:center">
+     <tr>
+          <th width="5%">ID</th><th width="15%">Name</th>
+          <th width="8%">Start</th><th width="30%">Description</th>
+          <th width="42%">Status</th>
+     </tr>
+     {% for t in acts %}
+     <tr>
+          <td>{{t.id}}</td><td>{{t.name}}</td>
+          <td>{{t.start}}</td><td>{{t.desc}}</td>
+          <td>{{t.status}}</td>
+     </tr>
+     {% endfor %}
+</table>
+
+{% endblock %}
