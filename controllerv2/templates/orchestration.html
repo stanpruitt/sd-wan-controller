@@ -1,5 +1,51 @@
 {% extends "layout.html" %}
 {% block content %}
-     <h1>Orchestration</h1>
-     <p>......</p>
+     <h1>Tunnel Orchestration</h1>
+     <br/>
+     <br/>
+<table style="text-align:center">
+     <tr>
+          <th width="15%">Tunnel Name</th><th width="5%">Type</th>
+          <th width="15%">Edge</th><th width="5%">wan</th>
+          <th width="15%">Peer Edge</th><th width="5%">link</th>
+          <th width="25%">Status</th><th width="10%">Operations</th>
+     </tr>
+     {% for t in tunnels %}
+     <tr>
+          <td>{{t.name}}</td><td>{{t.type}}</td>
+          <td>{{t.edge}}</td><td>{{t.wan}}</td>
+          <td>{{t.pedge}}</td><td>{{t.pwan}}</td>
+          <td></td>
+          <td>
+               <form method="post" action="deletetnl.html">
+                    <input type="hidden" name="tunnelname" value={{t.name}} />
+                    <input type="submit" name="button" value="delete" />
+               </form>
+          </td>
+     </tr>
+     {% endfor %}
+</table>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<hr/>
+<h3>Create new tunnel</h3>
+<form method="post" action="newtunnel.html">
+     <table>
+          <tr>
+               <td> tunnel name:</td> <td><input name="name" type="text" value="nj2sz"/></td> <td>tunnel type:</td> <td><input name="type" type="text" value="ipsec"/></td>
+          </tr>
+          <tr>
+               <td> edge:</td> <td><input name="edge" type="text" value="nj-fatedge"/></td> <td>wan:</td> <td><input name="wan" type="text" value="eth0"/></td>
+          </tr>
+          <tr>
+               <td> peer edge:</td> <td><input name="pedge" type="text" value="sz-thinedge"/></td> <td>peer wan:</td> <td><input name="pwan" type="text" value="ens3"/></td>
+          </tr>
+          <tr>
+               <td><input type="submit" name="button" value="Create"/></td>
+          </tr>
+     </table>
+</form>
 {% endblock %}

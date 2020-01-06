@@ -88,7 +88,32 @@ def procedureorchestration():
 
 @app.route("/orchestration")
 def orchestration():
-    return render_template("orchestration.html")
+    tunnels = Singleton.getInstance().tunnels()
+
+    return render_template("orchestration.html", tunnels = tunnels)
+
+
+@app.route("/newtunnel.html", methods=("POST", ))
+def newtunnel():
+    result = Singleton.getInstance().newtunnel(request.form)
+
+    if result == "OK":
+        return redirecturl()
+    else:
+        return render_template("status.html", result = result)
+
+
+
+@app.route("/deletetnl.html", methods=("POST", ))
+def deletetnl():
+    tunnels = Singleton.getInstance().deletetnl(request.form)
+    return redirecturl()
+
+def redirecturl():
+    return '<html><head> ' \
+    '<meta http-equiv="refresh" content="0; url=/orchestration" /> ' \
+    '</head><body></body>' \
+    '</html>'
 
 
 if __name__ == "__main__":

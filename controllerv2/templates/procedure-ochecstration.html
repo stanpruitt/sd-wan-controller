@@ -14,7 +14,6 @@
           <td>{{fatedge.name}}</td><td>{{fatedge.spec}}</td><td>aaa</td><td>aaa</td><td>aaa</td>
           <td>
                <a href="{{ url_for('orchestration') }}"><button>Orchestration</button></a>
-               <button>Delete</button>
           </td>
      </tr>
 {% endfor %}
@@ -32,7 +31,9 @@
 {% for thinedge in thinedges %}
      <tr>
           <td>{{thinedge.name}}</td><td>{{thinedge.spec}}</td><td>aaa</td><td>aaa</td><td>aaa</td>
-          <td><button>Orchestration</button><button>Delete</button></td>
+          <td>
+               <a href="{{ url_for('orchestration') }}"><button>Orchestration</button></a>
+          </td>
      </tr>
 {% endfor %}
 </table>
