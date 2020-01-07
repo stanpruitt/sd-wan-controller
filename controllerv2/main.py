@@ -1,3 +1,5 @@
+import sys
+print(sys.path)
 from controllerv2.core import Singleton
 
 from flask import render_template
@@ -125,5 +127,5 @@ def actions():
 
 if __name__ == "__main__":
     Singleton.getInstance()
-    app.run()
+    app.run(host="0.0.0.0", port=8080)
 
