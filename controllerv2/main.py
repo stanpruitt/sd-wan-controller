@@ -77,6 +77,10 @@ def north():
             print("log")
             print(e)
         return "Query OK"
+    elif cmd == "actionresult":
+        actionID = request.form["actionID"]
+        result = request.form["result"]
+        Singleton.getInstance().actionresult(actionID, result)
     else:
         return "Unknown"
 

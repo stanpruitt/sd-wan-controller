@@ -119,3 +119,6 @@ class Singleton:
             return v
 
       raise Exception("edge " +  name + " is not exist")
+
+   def actionresult(self, actionID, result):
+      self._actions.actionresult(actionID, result)

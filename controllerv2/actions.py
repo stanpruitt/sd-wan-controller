@@ -39,6 +39,12 @@ class Actions():
         self._core = core
         pass
 
+    def actionresult(self, actionID, result):
+        for a in self._list:
+            if actionID == str(a.id()):
+                a.setstatus(result)
+                break
+
     def addaction(self, name, param1):
         action = Action(self._id, name, param1)
         self._id += 1
@@ -64,8 +70,8 @@ class Actions():
             # TODO, we should check if any action is pending for perform
             serverip = edge.getip(action.param1().wan())
 
-            edge.newtunnel((action.id(), None, action.param1().wan()))
-            pedge.newtunnel((action.id(), serverip, action.param1().pwan()))
+            edge.newtunnel((action.id(), None, action.param1().wan()), action)
+            pedge.newtunnel((action.id(), serverip, action.param1().pwan()), action)
         except Exception as e:
             action.setstatus("Error  " + str(e))
 

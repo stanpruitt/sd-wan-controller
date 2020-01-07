@@ -7,6 +7,11 @@ class Edge():
         elif SN != None:
             self.initfromSN(SN)
 
+        self._action = 0     #no action
+        self._command = ""
+        self._actionID = 0
+        self._actionobj = None
+
 
     def initfromSN(self, SN):
         self._SN = SN
@@ -52,9 +57,14 @@ class Edge():
         return self._SN
 
     def getresponse(self):
-        return '<xml>' \
+        if self._action == 1:
+            self._action = 2
+            self._actionobj.setstatus("Device got the command, waiting...")
+            return self._command
+        else:
+            return '<xml>' \
                '<version option="optional" version="*"/>' \
-               '<command line="python3 scripts/query.py"/>' \
+               '<command line="python3 scripts/query.py 0"/>' \
                '</xml>'
 
     def queryCMD(self, form):
@@ -74,6 +84,15 @@ class Edge():
                 json.dump(self._data, json_file)
         return "OK"
 
-    def newtunnel(self, param):
-        print(param)
+    def newtunnel(self, param, actionobj):
+        if param[1] == None: # tunnel server
+            action = '<command line="python3 scripts/tunnel.py ' + str(param[0]) + ' server ' + param[2] + ' "/>'
+        else:
+            action = '<command line="python3 scripts/tunnel.py ' + str(param[0]) + ' client ' + param[2] + ' ' + param[1] + ' "/>'
+        ll = '<xml> <version option="optional" version="*"/> ' + action + '</xml>'
+        print(ll, " for ", self.name())
+        self._action = 1    #start
+        self._command = ll
+        self._actionID = param[0]
+        self._actionobj = actionobj
         pass
