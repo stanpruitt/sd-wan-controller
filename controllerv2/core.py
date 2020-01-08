@@ -2,6 +2,7 @@ from controllerv2.edge import Edge
 from controllerv2.tunnel import Tunnel
 from os import listdir
 from controllerv2.actions import Actions
+import subprocess
 
 class Singleton:
    __instance = None
@@ -17,6 +18,8 @@ class Singleton:
          raise Exception("This class is a singleton!")
       else:
          Singleton.__instance = self
+         subprocess.run(["mkdir", "./data"])
+         subprocess.run(["mkdir", "./tunnels"])
          self._edges = self.loaddata()
          self._tunnels = self.loadtunnels()
          self._actions = Actions(self)

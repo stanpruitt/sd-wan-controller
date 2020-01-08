@@ -10,7 +10,9 @@ git clone https://github.com/vewe-richard/sd-wan-controller.git
 
 # Run it:
 ```
-cd sd-wan-controller/controllerv2
+cd sd-wan-controller
+git pull
+
 export PYTHONPATH="$PWD"
-python3 ./main.py
+python3 controllerv2/main.py
 ```
