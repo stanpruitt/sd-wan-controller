@@ -83,6 +83,7 @@ def north():
         actionID = request.form["actionID"]
         result = request.form["result"]
         Singleton.getInstance().actionresult(actionID, result)
+        return "OK"
     else:
         return "Unknown"
 
