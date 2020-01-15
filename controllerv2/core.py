@@ -23,7 +23,6 @@ class Singleton:
          self._edges = self.loaddata()
          self._tunnels = self.loadtunnels()
          self._actions = Actions(self)
-         self._tunnelport = 5556
 #         print(self._edges)
 
    def getresponse(self, edgeSN):
@@ -90,9 +89,12 @@ class Singleton:
 
    def loadtunnels(self):
       tunnels = dict()
+      self._tunnelport = 5556
       for f in listdir("./tunnels/"):
          tunnel = Tunnel("./tunnels/" + f, form = None)
          tunnels[tunnel.name()] = tunnel
+         if tunnel.tunnelport() > self._tunnelport:
+            self._tunnelport = tunnel.tunnelport() + 1
       return tunnels
 
 

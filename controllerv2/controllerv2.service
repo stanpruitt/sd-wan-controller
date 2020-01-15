@@ -1,0 +1,12 @@
+[Unit]
+Description=SD-WAN controllerv2 service.
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 {GITROOT}/controllerv2/main.py
+Environment=PYTHONPATH="{GITROOT}"
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target

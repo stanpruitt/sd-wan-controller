@@ -6,6 +6,7 @@ from flask import render_template
 from flask import Flask, request
 import sys
 import json
+import os
 
 app = Flask(__name__)
 
@@ -167,7 +168,16 @@ def redirecturl():
 def actions():
     return render_template("actions.html", acts = Singleton.getInstance().actions())
 
+def runningUnderGitProjectRootDirectory(cwd):
+    return os.path.isdir(os.path.join(cwd, "controllerv2"))
+
 if __name__ == "__main__":
+    print("Checking working directory ...")
+    cwd = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    print(cwd)
+    assert runningUnderGitProjectRootDirectory(cwd)
+    os.chdir(cwd + "/controllerv2")
+
     Singleton.getInstance()
     app.run(host="0.0.0.0", port=8080)
 
