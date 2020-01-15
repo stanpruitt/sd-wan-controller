@@ -70,15 +70,23 @@ class Actions():
             # TODO, we should check if any action is pending for perform
             serverip = edge.getip(action.param1().wan())
 
-            edge.newtunnel((action.id(), None, action.param1().wan()), action)
-            pedge.newtunnel((action.id(), serverip, action.param1().pwan()), action)
+            edge.newtunnel((action.id(), None, action.param1().wan()), action, action.param1().tunnelport())
+            pedge.newtunnel((action.id(), serverip, action.param1().pwan()), action, action.param1().tunnelport())
         except Exception as e:
             action.setstatus("Error  " + str(e))
 
 
     def deltunnel(self, action):
         action.setdesc("Delete tunnel: " + action.param1().name())
-        action.setstatus("OK")
+        try:
+            edge = self._core.edge(action.param1().edge())
+            pedge = self._core.edge(action.param1().pedge())
+            action.setstatus("Waiting for delete ...")
+            # TODO, we should check if any action is pending for perform
+            edge.deltunnel(action, action.param1().tunnelport())
+            pedge.deltunnel(action, action.param1().tunnelport())
+        except Exception as e:
+            action.setstatus("Error  " + str(e))
 
 
 if __name__ == "__main__":

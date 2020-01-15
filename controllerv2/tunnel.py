@@ -2,17 +2,17 @@ import json
 import os
 
 class Tunnel():
-    def __init__(self, file = None, form = None):
+    def __init__(self, file = None, form = None, tunnelport=5555):
         self._error = "OK"
         if file != None:
             self.initfromfile(file)
         elif form != None:
-            self.initfromForm(form)
+            self.initfromForm(form, tunnelport)
 
     def result(self):
         return self._error
 
-    def initfromForm(self, form):
+    def initfromForm(self, form, tunnelport):
         data = dict()
         for k, value in form.items():
             if len(value) == 0:
@@ -20,6 +20,7 @@ class Tunnel():
                 return
             data[k] = value
 
+        data["tunnelport"] = tunnelport
         self._data = data
         with open("tunnels/" + data["name"], 'w') as json_file:
             json.dump(data, json_file)
@@ -47,6 +48,9 @@ class Tunnel():
 
     def pwan(self):
         return self._data["pwan"]
+
+    def tunnelport(self):
+        return self._data["tunnelport"]
 
     def data(self):
         return self._data

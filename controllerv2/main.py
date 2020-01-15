@@ -102,16 +102,26 @@ def actionresult():
         print("Invalid actionresult report from edge")
         return "NOK"
 
-    if returncode != "0":
-        print(request.form)
-        print("Error action report")
-        return "NOK"
+
 
     if actiontype == "query":
 #        print(request.form)
 #        print(request.form["stdout"])
+        if returncode != "0":
+            print(request.form)
+            print("Error action report")
+            return "NOK"
         astdout = json.loads(request.form["stdout"].replace("'", '"'))
         Singleton.getInstance().queryCMD2(sn, astdout)
+    elif actiontype == "tunnel":
+        if returncode == "0":
+            print("actionresult", request.form["stdout"], actionid)
+            Singleton.getInstance().actionresult(actionid, request.form["stdout"])
+        else:
+            Singleton.getInstance().actionresult(actionid, request.form["stderr"])
+        pass
+    else:
+        print("unknown actiontype", actiontype)
 
 
     return "OK"

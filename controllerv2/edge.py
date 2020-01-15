@@ -115,13 +115,19 @@ class Edge():
                 json.dump(self._data, json_file)
         return "OK"
 
-    def newtunnel(self, param, actionobj):
+    def newtunnel(self, param, actionobj, tunnelport):
         if param[1] == None: # tunnel server
-#            action = '<command line="python3 scripts/tunnel.py ' + str(param[0]) + ' server ' + param[2] + ' "/>'
-            ll = self.oneactionxml(self.getSN(), str(param[0]), "tunnel", '["python3", "scripts/tunnel.py, "-s", "-p", "5555"]')
+            #action = '<command line="python3 scripts/tunnel.py ' + str(param[0]) + ' server ' + param[2] + ' "/>'
+
+            args = '["python3", "scripts/tunnel.py", "-s", "-p", "' + str(tunnelport) + '"]'
+            ll = self.oneactionxml(self.getSN(), str(param[0]), "tunnel", args)
         else:
-#            action = '<command line="python3 scripts/tunnel.py ' + str(param[0]) + ' client ' + param[2] + ' ' + param[1] + ' "/>'
-            ll = self.oneactionxml(self.getSN(), str(param[0]), "tunnel", '["python3", "scripts/tunnel.py, "-c", param[1], "-p", "5555", "-l", "10.139.37.2"]')
+            #action = '<command line="python3 scripts/tunnel.py ' + str(param[0]) + ' client ' +
+            # param[2] + ' ' + param[1] + ' "/>'
+
+            args = '["python3", "scripts/tunnel.py", "-c", "' + param[1] + '", "-p", "'\
+                   + str(tunnelport) + '", "-l", "10.139.37.2"]'
+            ll = self.oneactionxml(self.getSN(), str(param[0]), "tunnel", args)
 #        ll = '<xml> <version option="optional" version="*"/> ' + action + '</xml>'
         print(ll, " for ", self.name())
         self._action = 1    #start
@@ -129,3 +135,17 @@ class Edge():
         self._actionID = param[0]
         self._actionobj = actionobj
         pass
+
+    def deltunnel(self, actionobj, tunnelport):
+
+        args = '["python3", "scripts/tunnel.py", "-d", "-p", "' + str(tunnelport) + '"]'
+        ll = self.oneactionxml(self.getSN(), str(actionobj.id()), "tunnel", args)
+
+        print(ll, " for ", self.name())
+        self._action = 1    #start
+        self._command = ll
+        self._actionID = actionobj.id()
+        self._actionobj = actionobj
+        pass
+
+

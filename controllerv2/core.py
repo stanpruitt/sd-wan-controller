@@ -23,6 +23,7 @@ class Singleton:
          self._edges = self.loaddata()
          self._tunnels = self.loadtunnels()
          self._actions = Actions(self)
+         self._tunnelport = 5556
 #         print(self._edges)
 
    def getresponse(self, edgeSN):
@@ -102,7 +103,8 @@ class Singleton:
       except Exception as e:
          return str(e)
 
-      tunnel = Tunnel(file = None, form = form)
+      tunnel = Tunnel(file = None, form = form, tunnelport = self._tunnelport)
+      self._tunnelport += 1
       if tunnel.result() != "OK":
          return tunnel.result()
       self._tunnels[tunnel.name()] = tunnel
