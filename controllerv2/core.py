@@ -43,6 +43,15 @@ class Singleton:
 
       return edge.queryCMD(form)
 
+   def queryCMD2(self, edgeSN, astdout):
+      try:
+         edge = self._edges[edgeSN]
+      except KeyError:
+         edge = Edge(file = None, SN = edgeSN)
+         self._edges[edgeSN] = edge
+
+      return edge.queryCMD2(astdout)
+
    def loaddata(self):
       edges = dict()
       for f in listdir("./data/"):

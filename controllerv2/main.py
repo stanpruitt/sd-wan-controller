@@ -5,6 +5,7 @@ from controllerv2.core import Singleton
 from flask import render_template
 from flask import Flask, request
 import sys
+import json
 
 app = Flask(__name__)
 
@@ -86,6 +87,36 @@ def north():
         return "OK"
     else:
         return "Unknown"
+
+@app.route("/north/actionresult/", methods=("POST",))
+def actionresult():
+    try:
+        actiontype = request.form["actiontype"]
+        actionid = request.form["actionid"]
+        sn = request.form["sn"]
+        returncode = request.form["returncode"]
+        #astderr = request.form["stderr"]
+    except Exception as e:
+        print(request.form)
+        print("Exception: ", e)
+        print("Invalid actionresult report from edge")
+        return "NOK"
+
+    if returncode != "0":
+        print(request.form)
+        print("Error action report")
+        return "NOK"
+
+    if actiontype == "query":
+#        print(request.form)
+#        print(request.form["stdout"])
+        astdout = json.loads(request.form["stdout"].replace("'", '"'))
+        Singleton.getInstance().queryCMD2(sn, astdout)
+
+
+    return "OK"
+
+
 
 @app.route("/procedureorchestration")
 def procedureorchestration():
