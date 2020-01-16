@@ -8,7 +8,7 @@ pip3 install flask
 git clone https://github.com/vewe-richard/sd-wan-controller.git
 ```
 
-# Run it:
+# Run it or Update it:
 ```
 cd sd-wan-controller
 git pull
