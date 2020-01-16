@@ -43,13 +43,14 @@ class Edge():
 
     def getip(self, wan):
         try:
-            wans = self._data["wans"]
-            for w in wans.split(";"):
-                its = w.split(",")
-                if its[0] == wan:
-                    return its[1]
-                else:
-                    raise
+            ip = self._data["map"][wan]
+            return ip
+        except:
+            pass
+
+        try:
+            ip = self._data["wans"][wan]
+            return ip
         except:
             raise(Exception("Can not get ip for wan " + wan))
 
@@ -126,7 +127,7 @@ class Edge():
             # param[2] + ' ' + param[1] + ' "/>'
 
             args = '["python3", "scripts/tunnel.py", "-c", "' + param[1] + '", "-p", "'\
-                   + str(tunnelport) + '", "-l", "10.139.37.2"]'
+                   + str(tunnelport) + '", "-l", "10.139.37.' + str(tunnelport%100 + 1) + '"]'
             ll = self.oneactionxml(self.getSN(), str(param[0]), "tunnel", args)
 #        ll = '<xml> <version option="optional" version="*"/> ' + action + '</xml>'
         print(ll, " for ", self.name())
